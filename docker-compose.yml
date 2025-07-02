@@ -1,0 +1,65 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:16
+    container_name: postgres4
+    environment:
+      POSTGRES_DB: payroll_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: admin123
+    ports:
+      - "5073:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - payslip-net
+
+  backend:
+    build: ./Backend
+    container_name: Backend4
+    ports:
+      - "3073:3073"
+    depends_on:
+      - postgres
+    networks:
+      - payslip-net
+
+  frontend:
+    build: ./Frontend
+    container_name: Frontend4
+    ports:
+      - "8131:80"
+    depends_on:
+      - backend
+    networks:
+      - payslip-net
+
+  hr:
+    build: ./HR
+    container_name: HR4
+    ports:
+      - "8132:80"
+    depends_on:
+      - backend
+    networks:
+      - payslip-net
+
+  payslip:
+    build: ./Payslip
+    container_name: Payslip4
+    ports:
+      - "8133:80"
+    depends_on:
+      - backend
+    networks:
+      - payslip-net
+
+volumes:
+  pgdata:
+
+networks:
+  payslip-net:
+    driver: bridge
+
