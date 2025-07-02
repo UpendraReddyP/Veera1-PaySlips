@@ -2,7 +2,7 @@ const express = require('express');
 const { Pool } = require('pg');
 const cors = require('cors');
 const app = express();
-const port = 3022;
+const port = 3073;
 
 // Middleware
 app.use(cors());
@@ -284,5 +284,5 @@ app.get('/api/tax-records/:month', async (req, res) => {
 });
 
 app.listen(port, () => {
-    console.log(`Server running at http://16.16.215.209:${port}`);
+    console.log(`Server running at http://51.20.106.247:${port}`);
 });

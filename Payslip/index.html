@@ -1081,7 +1081,7 @@
         // Save payslip (from original page1, unchanged)
         async function savePayslip(payslipData) {
             try {
-                const response = await fetch('http://16.16.215.209:3022/api/payslips', {
+                const response = await fetch('http://51.20.106.247:3073/api/payslips', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(payslipData)
